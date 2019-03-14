@@ -18,18 +18,18 @@ import java.util.concurrent.locks.ReentrantLock;
 import static android.content.ContentValues.TAG;
 
 public class NetInfoUtil {
-    public static Socket ss = null;
-    public static DataInputStream dis = null;
-    public static DataOutputStream dos = null;
-    public static boolean flag;
-    public static String host = "238v261d21.wicp.vip";  // 服务器域名
-    static Lock mlock = new ReentrantLock();
+    private static Socket ss = null;
+    private static DataInputStream dis = null;
+    private static DataOutputStream dos = null;
+    private static boolean flag;
+    private static String host = "238v261d21.wicp.vip";  // 服务器域名
+    private static Lock mlock = new ReentrantLock();
 
-    public static void connect() throws Exception {
+    private static void connect() throws Exception {
         mlock.lock();
         ss = new Socket();
         // 使用用服务器 ip 地址，如果 ip 更换，下面要进行值调整
-        String ip = "157.0.25.190";
+        String ip = "112.86.198.34";
 
 //        ***************************************
 //        对于本机 ip 和外网 ip（如百度）ping 不通。
