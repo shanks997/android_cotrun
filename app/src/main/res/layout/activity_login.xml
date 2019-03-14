@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/btn_look"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="9dp"
+            android:background="@null"
+            android:text="~ 随便看看 ~"
+            android:textColor="@color/colorMain" />
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:id="@+id/iv_logo"
+            android:layout_below="@+id/btn_look"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:background="@null"
+            android:src="@drawable/icon"/>
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_logo"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="57dp"
+            app:srcCompat="@drawable/cancel" />
+
+        <EditText
+            android:id="@+id/edt_userId"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/iv_logo"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="50dp"
+            android:drawableLeft="@drawable/account"
+            android:ems="10"
+            android:hint="请输入您的账号"
+            android:inputType="number"
+            android:maxLength="11"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/edt_passWord"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_below="@+id/edt_userId"
+            android:layout_alignStart="@+id/edt_userId"
+            android:layout_alignLeft="@+id/edt_userId"
+            android:layout_alignEnd="@+id/edt_userId"
+            android:layout_alignRight="@+id/edt_userId"
+            android:drawableLeft="@drawable/password"
+            android:ems="10"
+            android:hint="请输入您的密码"
+            android:inputType="textPassword"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_login"
+            android:text="登   录"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_below="@+id/edt_passWord"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/btn_login"
+            android:text="注   册"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:layout_below="@+id/btn_login"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/btn_forgetPW"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/btn_register"
+            android:layout_alignStart="@+id/btn_register"
+            android:layout_alignLeft="@+id/btn_register"
+            android:layout_alignEnd="@+id/btn_register"
+            android:layout_alignRight="@+id/btn_register"
+            android:layout_marginStart="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="-7dp"
+            android:layout_marginRight="-7dp"
+            android:background="@null"
+            android:text="忘记密码？"
+            android:textColor="@color/colorMain" />
+
+        <TextView
+            android:id="@+id/test"
+            android:layout_width="303dp"
+            android:layout_height="56dp"
+            android:hint="for test"
+            android:text="TextView"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
