@@ -21,6 +21,7 @@ public class WelcomeActivity extends AppCompatActivity {
         TimerTask timerTask =new TimerTask() {
             @Override
             public void run() {
+                // 这是在 TimerTask 类里面，故要写成 "WelcomeActivity.this" 而不是 "this"
                 Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

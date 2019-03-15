@@ -22,6 +22,8 @@
         </activity>
         <activity android:name="com.acotrun.activity.MainActivity" />
         <activity android:name="com.acotrun.activity.LoginActivity" />
+        <activity android:name="com.acotrun.activity.RegisterActivity" />
+        <activity android:name="com.acotrun.activity.ForgetPwdActivity" />
     </application>
 
 </manifest>
