@@ -18,18 +18,19 @@ import java.util.concurrent.locks.ReentrantLock;
 import static android.content.ContentValues.TAG;
 
 public class NetInfoUtil {
-    private static Socket ss = null;
+    private static Socket sk = null;
     private static DataInputStream dis = null;
     private static DataOutputStream dos = null;
     private static boolean flag;
-    private static String host = "238v261d21.wicp.vip";  // 服务器域名
+    // 服务器域名，不是很好使用
+    private static String host = "238v261d21.wicp.vip";  //
     private static Lock mlock = new ReentrantLock();
 
-    private static void connect() throws Exception {
+    public static void connect() throws Exception {
         mlock.lock();
-        ss = new Socket();
+        sk = new Socket();
         // 使用用服务器 ip 地址，如果 ip 更换，下面要进行值调整
-        String ip = "112.86.198.34";
+        String ip = "153.3.100.94";
 
 //        ***************************************
 //        对于本机 ip 和外网 ip（如百度）ping 不通。
@@ -50,18 +51,18 @@ public class NetInfoUtil {
 //            String ip = iaddr.getHostAddress();
 //            Log.d("putOutMsg", "ip = " + ip);
 //            SocketAddress skAddr = new InetSocketAddress("ip", 8888);
-//            ss.connect(skAddr, 5000);
-//            dis = new DataInputStream(ss.getInputStream());
-//            dos = new DataOutputStream(ss.getOutputStream());
+//            sk.connect(skAddr, 5000);
+//            dis = new DataInputStream(sk.getInputStream());
+//            dos = new DataOutputStream(sk.getOutputStream());
 //        } catch (UnknownHostException e) {
 //            e.printStackTrace();
 //            Log.d("putOutMeg", "域名解析出错！");
 //        }
 
-        SocketAddress skAddr = new InetSocketAddress(ip, 8888);
-        ss.connect(skAddr, 5000);
-        dis = new DataInputStream(ss.getInputStream());
-        dos = new DataOutputStream(ss.getOutputStream());
+        SocketAddress skAddr = new InetSocketAddress(ip, 9999);
+        sk.connect(skAddr, 5000);
+        dis = new DataInputStream(sk.getInputStream());
+        dos = new DataOutputStream(sk.getOutputStream());
     }
 
     private static void disConnected() {
@@ -73,17 +74,18 @@ public class NetInfoUtil {
             try { dis.close(); }
             catch (Exception e) { e.printStackTrace(); }
         }
-        if (ss != null) {
-            try { ss.close(); }
+        if (sk != null) {
+            try { sk.close(); }
             catch (Exception e) { e.printStackTrace(); }
         }
         mlock.unlock();
     }
 
-    public static boolean isUser(String name, String passward) {
+    public static boolean isUser(String name, String password) {
         try {
             connect();
-            dos.writeUTF(Constant.IS_USER + name + "<#>" + passward);
+            dos.writeUTF(Constant.IS_USER + name + "<#>" + password);
+            // 从服务器端的 dos.writeBoolean() 读取 Boolean 数据流
             flag = dis.readBoolean();
         } catch (Exception e) { e.printStackTrace(); }
         finally { disConnected(); }
