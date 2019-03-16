@@ -1,9 +1,9 @@
 package com.acotrun.activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.acotrun.R;
 import com.acotrun.utility.NetInfoUtil;
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView iv_cancel;
     private EditText edt_id;
@@ -34,6 +34,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
 
         iv_cancel = findViewById(R.id.iv_cancel);
