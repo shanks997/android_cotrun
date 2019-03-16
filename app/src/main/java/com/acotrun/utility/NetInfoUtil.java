@@ -23,12 +23,13 @@ public class NetInfoUtil {
     private static DataOutputStream dos = null;
     private static boolean flag;
     // 服务器域名，不是很好使用
-    private static String host = "238v261d21.wicp.vip";  //
+    private static String host = "238v261d21.wicp.vip";
     private static Lock mlock = new ReentrantLock();
 
     public static void connect() throws Exception {
         mlock.lock();
         sk = new Socket();
+<<<<<<< HEAD
         // 使用用服务器 ip 地址，如果 ip 更换，下面要进行值调整
         String ip = "153.3.100.94";
 
@@ -52,17 +53,29 @@ public class NetInfoUtil {
 //            Log.d("putOutMsg", "ip = " + ip);
 //            SocketAddress skAddr = new InetSocketAddress("ip", 8888);
 //            sk.connect(skAddr, 5000);
+=======
+        String ip = "157.0.24.79"; // 本机 ip，有变动需修改
+//        try {
+//            InetAddress iaddr = InetAddress.getByName(host);
+//            String ip = iaddr.getHostAddress();
+//            Log.d("putOutMsg", "ip = " + ip);
+            SocketAddress skAddr = new InetSocketAddress(ip, 9999);
+            sk.connect(skAddr, 5000);
+>>>>>>> shanks：I am gona die
 //            dis = new DataInputStream(sk.getInputStream());
 //            dos = new DataOutputStream(sk.getOutputStream());
 //        } catch (UnknownHostException e) {
 //            e.printStackTrace();
 //            Log.d("putOutMeg", "域名解析出错！");
 //        }
+<<<<<<< HEAD
 
         SocketAddress skAddr = new InetSocketAddress(ip, 9999);
         sk.connect(skAddr, 5000);
         dis = new DataInputStream(sk.getInputStream());
         dos = new DataOutputStream(sk.getOutputStream());
+=======
+>>>>>>> shanks：I am gona die
     }
 
     private static void disConnected() {
