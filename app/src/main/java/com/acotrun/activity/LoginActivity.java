@@ -62,22 +62,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, ForgetPwdActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_login) { // 点击了“登录”按钮
-<<<<<<< HEAD
-//            if (edt_id.length() < 11) { // 手机号码不足11位
-//                Toast.makeText(ct, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-=======
             if (edt_id.length() < 11) { // 手机号码不足11位
                 Toast.makeText(ct, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                 return;
             } else new Thread() {
->>>>>>> shanks：I am gona die
             // 匿名对象 形式为：new NoNameObject().fun();
                 @Override
                 public void run() {
                     try {
-                        // NetInfoUtil.connect();
                         String sid = edt_id.getText().toString();
                         String spwd = edt_pwd.getText().toString();
                         flag = NetInfoUtil.isUser(sid, spwd);
