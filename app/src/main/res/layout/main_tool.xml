@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主界面 标题栏 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:padding="10dip" >
+    <ImageButton
+        android:padding="5dp"
+        android:id="@+id/left_right_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/colorWhite"
+        android:src="@drawable/image_selector_loaded" /><!-- 离线按钮 -->
+
+    <ImageButton
+        android:padding="5dp"
+        android:id="@+id/upload_right_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@color/colorWhite"
+        android:src="@drawable/image_selector_upload" />
+
+    <ImageButton
+        android:padding="5dp"
+        android:id="@+id/search_right_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/upload_right_btn"
+        android:background="@color/colorWhite"
+        android:src="@drawable/image_selector_search" />		<!-- 搜索按钮 -->
+
+    <TextView
+        android:id="@+id/head_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="N U A A"
+        android:textColor="@color/colorRed"
+        android:textSize="25sp" />
+
+</RelativeLayout>

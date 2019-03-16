@@ -29,7 +29,7 @@ public class NetInfoUtil {
     public static void connect() throws Exception {
         mlock.lock();
         sk = new Socket();
-        String ip = "157.0.24.15"; // 本机 ip，有变动需修改
+        String ip = ""; // 本机 ip，有变动需修改
 //        try {
 //            InetAddress iaddr = InetAddress.getByName(host);
 //            String ip = iaddr.getHostAddress();

@@ -1,9 +1,9 @@
 package com.acotrun.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.acotrun.R;
 import com.acotrun.utility.NetInfoUtil;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
+public class LoginActivity extends Activity implements View.OnClickListener {
 
     private ImageView iv_cancel;
     private EditText edt_id;
@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TextView tv_test;
 
     Boolean flag;
-    Context ct = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         } else if (v.getId() == R.id.btn_login) { // 点击了“登录”按钮
             if (edt_id.length() < 11) { // 手机号码不足11位
-                Toast.makeText(ct, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
                 return;
             } else new Thread() {
             // 匿名对象 形式为：new NoNameObject().fun();
@@ -83,6 +82,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }.start();
         } else if (v.getId() == R.id.btn_register) {
             Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_look) {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
