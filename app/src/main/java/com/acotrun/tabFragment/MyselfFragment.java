@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 
 import com.acotrun.R;
 
-public class HomeFragment extends Fragment {
+public class MyselfFragment  extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View homelayout = inflater.inflate(R.layout.home_layout, container, false);
+        View homelayout = inflater.inflate(R.layout.myself_layout, container, false);
         return homelayout;
     }
 
