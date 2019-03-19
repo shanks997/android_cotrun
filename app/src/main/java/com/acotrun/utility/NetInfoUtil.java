@@ -22,14 +22,18 @@ public class NetInfoUtil {
     private static DataInputStream dis = null;
     private static DataOutputStream dos = null;
     private static boolean flag;
-    // 服务器域名，不是很好使用
-    private static String host = "238v261d21.wicp.vip";
+    // 使用域名
+    private static String host = "";
     private static Lock mlock = new ReentrantLock();
 
     public static void connect() throws Exception {
         mlock.lock();
         sk = new Socket();
-        String ip = ""; // 本机 ip，有变动需修改
+
+        // 腾讯云服务器 ip
+        String ip = "129.204.142.254";
+//        String ip = "112.86.198.202";
+
 //        try {
 //            InetAddress iaddr = InetAddress.getByName(host);
 //            String ip = iaddr.getHostAddress();
