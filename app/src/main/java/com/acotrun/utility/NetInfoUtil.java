@@ -1,21 +1,12 @@
 package com.acotrun.utility;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Log;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.net.UnknownHostException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-
-import static android.content.ContentValues.TAG;
 
 public class NetInfoUtil {
     private static Socket sk = null;
@@ -32,20 +23,10 @@ public class NetInfoUtil {
 
         // 腾讯云服务器 ip
         String ip = "129.204.142.254";
-//        String ip = "112.86.198.202";
-
-//        try {
-//            InetAddress iaddr = InetAddress.getByName(host);
-//            String ip = iaddr.getHostAddress();
-//            Log.d("putOutMsg", "ip = " + ip);
-            SocketAddress skAddr = new InetSocketAddress(ip, 9999);
-            sk.connect(skAddr, 5000);
-            dis = new DataInputStream(sk.getInputStream());
-            dos = new DataOutputStream(sk.getOutputStream());
-//        } catch (UnknownHostException e) {
-//            e.printStackTrace();
-//            Log.d("putOutMeg", "域名解析出错！");
-//        }
+        SocketAddress skAddr = new InetSocketAddress(ip, 9999);
+        sk.connect(skAddr, 5000);
+        dis = new DataInputStream(sk.getInputStream());
+        dos = new DataOutputStream(sk.getOutputStream());
     }
 
     private static void disConnected() {

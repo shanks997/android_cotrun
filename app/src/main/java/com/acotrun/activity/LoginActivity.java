@@ -1,6 +1,5 @@
 package com.acotrun.activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.acotrun.R;
+import com.acotrun.popWindow.LoginPopWindow;
 import com.acotrun.utility.NetInfoUtil;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -27,6 +29,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_forgetPW;
     private Button btn_login;
     private Button btn_register;
+    private LoginPopWindow login_pWin;
 
     Boolean flag;
 
@@ -66,6 +69,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                 return;
             } else {
+                login_pWin = new LoginPopWindow(this);
+                login_pWin.showAtLocation(this.findViewById(R.id.login), Gravity.CENTER, 0, 0);
                 Thread td = new Thread() {
                 // 匿名对象 形式为：new NoNameObject().fun();
                     @Override
@@ -86,7 +91,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                login_pWin.dismiss();
+
                 if (flag) {
+                    this.finish();
                     Intent intent = new Intent(this, MainActivity.class);
                     startActivity(intent);
                 } else {
@@ -154,4 +162,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (login_pWin != null && login_pWin.isShowing()) {
+                login_pWin.dismiss();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }
