@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.acotrun.R;
+import com.acotrun.popWindow.LoginPopWindow;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 

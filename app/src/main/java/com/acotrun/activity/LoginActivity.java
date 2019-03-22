@@ -3,6 +3,8 @@ package com.acotrun.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -31,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_register;
     private LoginPopWindow login_pWin;
 
+    private Handler hdr;
     Boolean flag;
 
     @Override
@@ -52,8 +55,43 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         btn_login.setOnClickListener(this);
         btn_register.setOnClickListener(this);
 
-//        iv_cancel.bringToFront();
+        iv_cancel.bringToFront();
         clearButtonListener(edt_id, edt_pwd, iv_cancel);
+
+        hdr = new Handler()
+        {
+
+            @Override
+            public void handleMessage(Message msg)
+            {
+                super.handleMessage(msg);
+                switch (msg.what)
+                {
+                    case 0:					///登陆成功
+                        login_pWin.dismiss();
+                        if(flag) {
+                            LoginActivity.this.finish();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            edt_id.setText("");
+                            edt_pwd.setText("");
+                            // Alert 对话框放在 td 线程中会显示不出来
+                            AlertDialog.Builder alert = new AlertDialog.Builder(LoginActivity.this);
+                            alert.setTitle("Alert!");
+                            alert.setMessage("账号密码有误，登陆失败！");
+                            alert.setNegativeButton("确定",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
+                            // 显示
+                            alert.show();
+                        }
+                }
+            }
+        };
     }
 
     @Override
@@ -69,9 +107,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
                 return;
             } else {
-                login_pWin = new LoginPopWindow(this);
+                // LoginPopWindow在主线程的最后运行，不晓得为什么
+                login_pWin = new LoginPopWindow(LoginActivity.this);
                 login_pWin.showAtLocation(this.findViewById(R.id.login), Gravity.CENTER, 0, 0);
-                Thread td = new Thread() {
+                new Thread() {
                 // 匿名对象 形式为：new NoNameObject().fun();
                     @Override
                     public void run() {
@@ -79,40 +118,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             String sid = edt_id.getText().toString();
                             String spwd = edt_pwd.getText().toString();
                             flag = NetInfoUtil.isUser(sid, spwd);
+                            Message msg=new Message();
+                            msg.what=0;
+                            hdr.sendMessage(msg);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
-                };
-                td.start();
-                // 让 td 线程先运行完，再运行主线程
-                try {
-                    td.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                login_pWin.dismiss();
-
-                if (flag) {
-                    this.finish();
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                } else {
-                    edt_id.setText("");
-                    edt_pwd.setText("");
-                    // Alert 对话框放在 td 线程中会显示不出来
-                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
-                    alert.setTitle("Alert!");
-                    alert.setMessage("账号密码有误，登陆失败！");
-                    alert.setNegativeButton("确定",
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-                    // 显示
-                    alert.show();
-                }
+                }.start();
             }
         } else if (v.getId() == R.id.btn_register) { // 点击了“注册”按钮
             Intent intent = new Intent(this, RegisterActivity.class);
