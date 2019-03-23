@@ -33,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_register;
     private LoginPopWindow login_pWin;
 
+    private long exitTime = 0;
     private Handler hdr;
     Boolean flag;
 
@@ -182,9 +183,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if (login_pWin != null && login_pWin.isShowing()) {
                 login_pWin.dismiss();
                 return true;
+            } else {
+                exit();
+                return false;
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 1500) {
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.exit_again),
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
+        }
     }
 
 }

@@ -5,8 +5,10 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.acotrun.R;
 import com.acotrun.tabFragment.HomeFragment;
@@ -19,6 +21,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
     private TextView homeT;
     private TextView myselfT;
     private FragmentManager fragM;
+
+    private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +100,27 @@ public class MainActivity extends Activity implements View.OnClickListener {
         }
         if (myselfF != null) {
             transaction.hide(myselfF);
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if ((System.currentTimeMillis() - exitTime) > 1500) {
+            Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.exit_again),
+                    Toast.LENGTH_SHORT).show();
+            exitTime = System.currentTimeMillis();
+        } else {
+            finish();
+            System.exit(0);
         }
     }
 
