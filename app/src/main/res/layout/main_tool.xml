@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="N U A A"
-        android:textColor="@color/colorRed"
+        android:textColor="@color/colorMain"
         android:textSize="25sp" />
 
 </RelativeLayout>
