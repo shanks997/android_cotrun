@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item 
-		android:state_pressed="true"
-        android:drawable="@drawable/upload_selecte"></item>
-    <item 
-        android:drawable="@drawable/upload_unselecte"></item>
+    <!--<item-->
+        <!--android:state_pressed="true"-->
+        <!--android:drawable="@drawable/upload_select"></item>-->
+    <!--<item-->
+        <!--android:drawable="@drawable/upload_unselect"></item>-->
+    <item
+        android:drawable="@drawable/upload"></item>
 
 </selector>
