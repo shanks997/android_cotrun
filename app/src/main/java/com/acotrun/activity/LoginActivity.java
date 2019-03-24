@@ -73,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(flag) {
                             LoginActivity.this.finish();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.putExtra("account", edt_id.getText().toString());
                             startActivity(intent);
                         } else {
                             edt_id.setText("");

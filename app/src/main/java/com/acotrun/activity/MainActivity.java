@@ -1,105 +1,105 @@
 package com.acotrun.activity;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.acotrun.R;
 import com.acotrun.tabFragment.HomeFragment;
 import com.acotrun.tabFragment.MyselfFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
-    private HomeFragment homeF;
-    private MyselfFragment myselfF;
-    private TextView homeT;
-    private TextView myselfT;
-    private FragmentManager fragM;
-
+    private RadioGroup radioGroup;
+    private Button btn0, btn1, btn2, btn3;
+    private HomeFragment homeFragment;
+    private MyselfFragment myselfFragment;
+    private String account;
     private long exitTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         initViews();
-        fragM = getFragmentManager();
-        // 第一次启动时选中第0个tab
-        setTabSelection(0);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.home_text:
-                setTabSelection(0);
-                break;
-            case R.id.myself_text:
-                setTabSelection(3);
-                break;
-        }
+        initFragment();
+        // 当前登录的 用户名
+        account = getIntent().getStringExtra("account");
     }
 
     private void initViews() {
-        homeT = findViewById(R.id.home_text);
-        myselfT = findViewById(R.id.myself_text);
-        homeT.setOnClickListener(this);
-        myselfT.setOnClickListener(this);
+        btn0 = findViewById(R.id.rb_home);
+        btn3 = findViewById(R.id.rb_myself);
+        radioGroup = findViewById(R.id.radio);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                // 每次选中之前先清楚掉上次的选中状态
+                clearSelection();
+                // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
+                hideFragments(ft);
+                switch (checkedId) {
+                    // 点击了 “首页”
+                    case R.id.rb_home:
+                        btn0.setTextColor(getResources().getColor(R.color.colorMain));
+                        if (homeFragment == null) {
+                            // 如果MessageFragment为空，则创建一个并添加到界面上
+                            homeFragment = new HomeFragment();
+                            ft.add(R.id.frame, homeFragment);
+                        } else {
+                            // 如果MessageFragment不为空，则直接将它显示出来
+                            ft.show(homeFragment);
+                        }
+                        break;
+
+
+                    case R.id.rb_myself:
+                        btn3.setTextColor(getResources().getColor(R.color.colorMain));
+                        if (myselfFragment == null) {
+                            // 如果MessageFragment为空，则创建一个并添加到界面上
+                            myselfFragment = new MyselfFragment();
+                            ft.add(R.id.frame, myselfFragment);
+                        } else {
+                            // 如果MessageFragment不为空，则直接将它显示出来
+                            ft.show(myselfFragment);
+                        }
+                        break;
+                }
+                ft.commit();
+            }
+
+        });
     }
 
-    private void setTabSelection(int index) {
-        // 每次选中之前先清楚掉上次的选中状态
-        clearSelection();
-        // 开启一个Fragment事务
-        FragmentTransaction fragTran = fragM.beginTransaction();
-        // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
-        hideFragments(fragTran);
-        switch (index) {
-            case 0:
-                // 当点击了 主页tab 时，改变控件的图片和文字颜色
-                homeT.setTextColor(Color.parseColor("#008577"));
-                if (homeF == null) {
-                    // 如果MessageFragment为空，则创建一个并添加到界面上
-                    homeF = new HomeFragment();
-                    fragTran.add(R.id.content, homeF);
-                } else {
-                    // 如果MessageFragment不为空，则直接将它显示出来
-                    fragTran.show(homeF);
-                }
-                break;
-            case 3:
-                // 当点击了 主页tab 时，改变控件的图片和文字颜色
-                myselfT.setTextColor(Color.parseColor("#008577"));
-                if (myselfF == null) {
-                    // 如果MessageFragment为空，则创建一个并添加到界面上
-                    myselfF = new MyselfFragment();
-                    fragTran.add(R.id.content, myselfF);
-                } else {
-                    // 如果MessageFragment不为空，则直接将它显示出来
-                    fragTran.show(myselfF);
-                }
-                break;
-        }
-        fragTran.commit();
+    private void initFragment() {
+        FragmentManager ft = getSupportFragmentManager();
+        FragmentTransaction fm = ft.beginTransaction();
+        homeFragment = new HomeFragment();
+        btn0.setTextColor(getResources().getColor(R.color.colorMain));
+        fm.add(R.id.frame, homeFragment);
+        fm.commit();
     }
 
     private void clearSelection() {
-        homeT.setTextColor(Color.parseColor("#82858b"));
-        myselfT.setTextColor(Color.parseColor("#82858b"));
+        btn0.setTextColor(Color.parseColor("#82858b"));
+        btn3.setTextColor(Color.parseColor("#82858b"));
     }
 
     private void hideFragments(FragmentTransaction transaction) {
-        if (homeF != null) {
-            transaction.hide(homeF);
+        if (homeFragment != null) {
+            transaction.hide(homeFragment);
         }
-        if (myselfF != null) {
-            transaction.hide(myselfF);
+        if (myselfFragment != null) {
+            transaction.hide(myselfFragment);
         }
     }
 

@@ -1,72 +1,69 @@
 package com.acotrun.tabFragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.os.Handler;
-import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.acotrun.R;
-import com.acotrun.popWindow.LoginPopWindow;
+import com.acotrun.adapter.HomePageAdapter;
+import com.acotrun.homeFragment.DietFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private Button btn;
-    private TextView tv;
-
-//    private Handler hdr;
-//    private ViewPager vp; // /广告栏
-//
-//    final int CLOCK = 0; // 定时器
+    private View v_home;
+    private PagerTabStrip pts_tab;
+    private ViewPager vp;
+    private List<Fragment> list;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        btn = getActivity().findViewById(R.id.btn_0);
-        tv = getActivity().findViewById(R.id.home_text);
-        btn.setOnClickListener(this);
+        initPagerStrip();
+        initViewPager();
+    }
 
-//        hdr = new Handler() {
-//            @Override
-//            public void handleMessage(Message msg) {
-//                super.handleMessage(msg);
-//                switch (msg.what) {
-//                    case CLOCK: // 按时走广告
-//                        vp.setCurrentItem(vp.getCurrentItem() + 1);
-//                        break;
-//                }
-//            }
-//        };
-//        new Thread() {
-//            public void run() {
-//                while (true) {
-//                    try {
-//                        sleep(2000);
-//                        hdr.sendEmptyMessage(CLOCK);
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        }.start();
+    // 初始化翻页标题栏
+    private void initPagerStrip() {
+        pts_tab = v_home.findViewById(R.id.pts_tab);
+        pts_tab.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        pts_tab.setTextColor(Color.BLACK);
+    }
+
+    // 初始化翻页视图
+    private void initViewPager() {
+        list=new ArrayList<>();
+        list.add(new DietFragment());
+        list.add(new DietFragment());
+        list.add(new DietFragment());
+        list.add(new DietFragment());
+        HomePageAdapter adapter = new HomePageAdapter(
+                getFragmentManager(), list);
+        // 从布局视图中获取名叫vp_content的翻页视图
+        vp = v_home.findViewById(R.id.vp_content);
+        vp.setAdapter(adapter);
+        // 设置vp_content默认显示第一个页面
+        vp.setCurrentItem(0);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View homelayout = inflater.inflate(R.layout.home_layout, container, false);
-        return homelayout;
+        v_home = inflater.inflate(R.layout.home_layout, container, false);
+        return v_home;
     }
 
     @Override
     public void onClick(View v) {
-        if (v == btn) tv.setText("Button clicked");
+        // TO DO..
     }
 
 }

@@ -5,77 +5,84 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="activity.MainActivity" >
+    tools:context="activity.MainActivity">
 
     <include
         android:id="@+id/head_main"
+        layout="@layout/main_tool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/main_tool" />
+        android:layout_height="wrap_content" />
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <FrameLayout
-            android:id="@+id/content"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_above="@id/linerL" />
-
-        <LinearLayout
-            android:id="@+id/linerL"
+        <RadioGroup
+            android:id="@+id/radio"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentBottom="true"
+            android:layout_height="match_parent"
+            android:checkedButton="@+id/rb_home"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/home_text"
+            <RadioButton
+                android:id="@+id/rb_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:button="@null"
                 android:drawableTop="@drawable/home"
                 android:gravity="center"
                 android:text="首页"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
-            <TextView
-                android:id="@+id/record_text"
+
+            <RadioButton
+                android:id="@+id/rb_record"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:button="@null"
                 android:drawableTop="@drawable/record"
                 android:gravity="center"
                 android:text="记录"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
-            <TextView
-                android:id="@+id/analyze_text"
+
+            <RadioButton
+                android:id="@+id/rb_analyze"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:button="@null"
                 android:drawableTop="@drawable/analyze"
                 android:gravity="center"
                 android:text="分析"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
-            <TextView
-                android:id="@+id/myself_text"
+
+            <RadioButton
+                android:id="@+id/rb_myself"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
+                android:button="@null"
                 android:drawableTop="@drawable/myself"
                 android:gravity="center"
                 android:text="我的"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
 
-        </LinearLayout>
+        </RadioGroup>
     </RelativeLayout>
 </LinearLayout>
