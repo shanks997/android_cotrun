@@ -6,7 +6,6 @@
     android:background="@color/colorWhite"
     android:padding="10dip" >
     <ImageButton
-        android:padding="5dp"
         android:id="@+id/left_right_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +14,6 @@
         android:src="@drawable/image_selector_loaded" /><!-- 离线按钮 -->
 
     <ImageButton
-        android:padding="5dp"
         android:id="@+id/upload_right_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +23,6 @@
         android:src="@drawable/image_selector_upload" />
 
     <ImageButton
-        android:padding="5dp"
         android:id="@+id/search_right_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,9 +36,9 @@
         android:id="@+id/head_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:text="N U A A"
         android:textColor="@color/colorMain"
-        android:textSize="25sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>

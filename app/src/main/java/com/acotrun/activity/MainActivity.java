@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     // 点击了 “首页”
                     case R.id.rb_home:
+                        findViewById(R.id.head_main).setVisibility(View.GONE);
                         btn0.setTextColor(getResources().getColor(R.color.colorMain));
                         if (homeFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     case R.id.rb_myself:
+                        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
                         btn3.setTextColor(getResources().getColor(R.color.colorMain));
                         if (myselfFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -85,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fm = ft.beginTransaction();
         homeFragment = new HomeFragment();
         btn0.setTextColor(getResources().getColor(R.color.colorMain));
+        findViewById(R.id.head_main).setVisibility(View.GONE);
         fm.add(R.id.frame, homeFragment);
         fm.commit();
     }
