@@ -12,14 +12,18 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.acotrun.R;
+import com.acotrun.tabFragment.AnalyzeFragment;
 import com.acotrun.tabFragment.HomeFragment;
 import com.acotrun.tabFragment.MyselfFragment;
+import com.acotrun.tabFragment.RecordFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private Button btn0, btn1, btn2, btn3;
     private HomeFragment homeFragment;
+    private RecordFragment recordFragment;
+    private AnalyzeFragment analyzeFragment;
     private MyselfFragment myselfFragment;
     private String account;
     private long exitTime = 0;
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         btn0 = findViewById(R.id.rb_home);
+        btn1 = findViewById(R.id.rb_record);
+        btn2 = findViewById(R.id.rb_analyze);
         btn3 = findViewById(R.id.rb_myself);
         radioGroup = findViewById(R.id.radio);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -63,6 +69,31 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
 
+                    case R.id.rb_record:
+                        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
+                        btn1.setTextColor(getResources().getColor(R.color.colorMain));
+                        if (recordFragment == null) {
+                            // 如果MessageFragment为空，则创建一个并添加到界面上
+                            recordFragment = new RecordFragment();
+                            ft.add(R.id.frame, recordFragment);
+                        } else {
+                            // 如果MessageFragment不为空，则直接将它显示出来
+                            ft.show(recordFragment);
+                        }
+                        break;
+
+                    case R.id.rb_analyze:
+                        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
+                        btn2.setTextColor(getResources().getColor(R.color.colorMain));
+                        if (analyzeFragment == null) {
+                            // 如果MessageFragment为空，则创建一个并添加到界面上
+                            analyzeFragment = new AnalyzeFragment();
+                            ft.add(R.id.frame, analyzeFragment);
+                        } else {
+                            // 如果MessageFragment不为空，则直接将它显示出来
+                            ft.show(analyzeFragment);
+                        }
+                        break;
 
                     case R.id.rb_myself:
                         findViewById(R.id.head_main).setVisibility(View.VISIBLE);
@@ -95,12 +126,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void clearSelection() {
         btn0.setTextColor(Color.parseColor("#82858b"));
+        btn1.setTextColor(Color.parseColor("#82858b"));
+        btn2.setTextColor(Color.parseColor("#82858b"));
         btn3.setTextColor(Color.parseColor("#82858b"));
     }
 
     private void hideFragments(FragmentTransaction transaction) {
         if (homeFragment != null) {
             transaction.hide(homeFragment);
+        }
+        if (recordFragment != null) {
+            transaction.hide(recordFragment);
+        }
+        if (analyzeFragment != null) {
+            transaction.hide(analyzeFragment);
         }
         if (myselfFragment != null) {
             transaction.hide(myselfFragment);

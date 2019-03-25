@@ -9,19 +9,19 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/Myself_text"
+            android:id="@+id/Analyze_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="这是 MYSELF 界面"
+            android:text="这是 ANALYZE 界面"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/btn_my"
+            android:id="@+id/btn_an"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Myself_text"
+            android:layout_below="@id/Analyze_text"
             android:layout_centerHorizontal="true"
             android:text="Button" />
 

@@ -25,6 +25,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private List<Fragment> list;
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        v_home = inflater.inflate(R.layout.home_layout, container, false);
+        return v_home;
+    }
+
+    @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initPagerStrip();
@@ -52,13 +59,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         vp.setAdapter(adapter);
         // 设置vp_content默认显示第一个页面
         vp.setCurrentItem(0);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        v_home = inflater.inflate(R.layout.home_layout, container, false);
-        return v_home;
     }
 
     @Override
