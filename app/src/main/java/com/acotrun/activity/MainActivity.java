@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     // 点击了 “首页”
                     case R.id.rb_home:
-                        findViewById(R.id.head_main).setVisibility(View.GONE);
+                        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
                         btn0.setTextColor(getResources().getColor(R.color.colorMain));
                         if (homeFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.rb_record:
-                        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
+                        findViewById(R.id.head_main).setVisibility(View.GONE);
                         btn1.setTextColor(getResources().getColor(R.color.colorMain));
                         if (recordFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
@@ -119,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fm = ft.beginTransaction();
         homeFragment = new HomeFragment();
         btn0.setTextColor(getResources().getColor(R.color.colorMain));
-        findViewById(R.id.head_main).setVisibility(View.GONE);
+        findViewById(R.id.head_main).setVisibility(View.VISIBLE);
         fm.add(R.id.frame, homeFragment);
         fm.commit();
     }

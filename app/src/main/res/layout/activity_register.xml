@@ -1,22 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="16px"
+        android:layout_marginRight="16px"
+        android:divider="@drawable/item_background"
+        android:orientation="vertical"
+        android:showDividers="beginning|middle" >
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center"
-        android:text="这是一个注册页面"
-        android:textSize="24sp"
-        android:layout_centerInParent="true" />
+        <RelativeLayout
+            android:id="@+id/rl_head"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp" >
 
-    </RelativeLayout>
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:text="头像"
+                android:textSize="16sp" />
 
-</android.support.constraint.ConstraintLayout>
+            <ImageView
+                android:id="@+id/reg_iv_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/avatar" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="用户名"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/reg_edt_accounts"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50.0dip"
+                android:background="#00ffffff"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:textColor="#ff666666"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="密  码" />
+
+            <EditText
+                android:id="@+id/reg_tv_pwd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50.0dip"
+                android:background="#00ffffff"
+                android:maxLength="16"
+                android:maxLines="1"
+                android:textColor="#ff666666"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp" >
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="性  别" />
+
+            <TextView
+                android:id="@+id/reg_tv_sex"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50.0dip"
+                android:background="#00ffffff"
+                android:maxLength="5"
+                android:maxLines="1"
+                android:textColor="#ff666666"
+                android:textSize="16.0sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/reg_btn_ok"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_marginLeft="16px"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="16px"
+            android:background="@drawable/btn_common"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,30 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:padding="10dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+<android.support.v4.view.ViewPager
+    android:id="@+id/vp_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/Record_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="这是 RECORD 界面"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_re"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/Record_text"
-            android:layout_centerHorizontal="true"
-            android:text="Button" />
-
-    </RelativeLayout>
-
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.view.PagerTabStrip
+        android:id="@+id/pts_tab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</android.support.v4.view.ViewPager>
+</LinearLayout>

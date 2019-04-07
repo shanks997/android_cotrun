@@ -8,15 +8,15 @@ import com.acotrun.bean.ActivityInfo;
 
 import java.util.List;
 
-public class HomePageAdapter extends FragmentPagerAdapter {
+public class RecordPageAdapter extends FragmentPagerAdapter {
 
     private List<Fragment> list;
 
-    public HomePageAdapter(FragmentManager fm) {
+    public RecordPageAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public HomePageAdapter(FragmentManager fm, List<Fragment> list) {
+    public RecordPageAdapter(FragmentManager fm, List<Fragment> list) {
         super(fm);
         this.list = list;
     }

@@ -1,17 +1,30 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp">
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_content"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v4.view.PagerTabStrip
-            android:id="@+id/pts_tab"
+        <TextView
+            android:id="@+id/Record_text"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </android.support.v4.view.ViewPager>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="这是 HOME 界面"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_ho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Record_text"
+            android:layout_centerHorizontal="true"
+            android:text="Button" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

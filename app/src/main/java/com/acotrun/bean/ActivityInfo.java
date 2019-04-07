@@ -11,7 +11,7 @@ public class ActivityInfo {
     }
 
     private static String[] mNameArray = {
-            "饮食", "运动", "日常", "睡眠"
+            "饮食", "运动", "日常"
     };
 
     public static String getName(int i) {
