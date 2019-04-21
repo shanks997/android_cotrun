@@ -39,7 +39,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private long exitTime = 0;
     private Handler hdr;
-    Boolean flag;
+    private static boolean flag;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

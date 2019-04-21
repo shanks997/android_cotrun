@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -27,6 +29,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -35,11 +39,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.acotrun.R;
+import com.acotrun.utility.BitmapUtils;
 import com.acotrun.utility.Constant;
+import com.acotrun.utility.NetInfoUtil;
+import com.acotrun.utility.ResponseUtil;
+import com.acotrun.utility.UploadUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.List;
 
 public class RegisterActivity extends Activity implements View.OnClickListener {
 
@@ -49,15 +58,25 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private PopupWindow pop;
     private InputMethodManager imm;
     private AlertDialog.Builder builder;
-    private TextView reg_tv_sex;
+    private Button btn_ok;
+    private EditText edt_name;
+    private EditText edt_pwd;
+    private TextView tv_sex;
+
+    private String name;
+    private String pwd;
+    private String sex;
+    private Handler handler;
+    private static boolean flag;
+    private static final String TAG = "RegisterActivity";
 
     // 请求识别码
     private static final int REQUEST_IMAGE_GET = 0;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_SMALL_IMAGE_CUTTING = 2;
 
-    private final int PERMISSION_READ_AND_CAMERA =0;// 读和相机权限
-    private final int PERMISSION_READ =1;// 读取权限
+    private final int PERMISSION_READ_AND_CAMERA = 0;// 读和相机权限
+    private final int PERMISSION_READ = 1;// 读取权限
     private static final String IMAGE_FILE_NAME = "avatar.jpg";
     private static final String path = Environment.getExternalStorageDirectory() + File.separator + "acotrun";
 
@@ -71,9 +90,32 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         rl_head.setOnClickListener(this);
         ll_sex = findViewById(R.id.ll_sex);
         ll_sex.setOnClickListener(this);
-        reg_tv_sex = findViewById(R.id.reg_tv_sex);
+        btn_ok = findViewById(R.id.reg_btn_ok);
+        btn_ok.setOnClickListener(this);
+        edt_name = findViewById(R.id.reg_edt_name);
+        edt_pwd = findViewById(R.id.reg_edt_pwd);
+        tv_sex = findViewById(R.id.reg_tv_sex);
 
         initView();
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg)
+            {
+                super.handleMessage(msg);
+                switch (msg.what)
+                {
+                    case 0:					// 注册成功
+                        if (flag) {
+                            Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                            RegisterActivity.this.finish();
+
+                        } else {
+                            Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                }
+            }
+        };
     }
 
     private void initView() {
@@ -191,7 +233,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
         Uri cropUri;
         cropUri = Uri.fromFile(cropFile);
-
         Intent intent = new Intent("com.android.camera.action.CROP");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
@@ -219,15 +260,14 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             switch (requestCode) {
                 // 切割
                 case REQUEST_SMALL_IMAGE_CUTTING:
-//                    File cropFile = new File(path, "crop.jpg");
-//                    Uri cropUri = Uri.fromFile(cropFile);
-//                    setPicToView(cropUri);
-                    showHeadImage();
+                    File cropFile=new File(path, "crop.jpg");
+                    Uri cropUri = Uri.fromFile(cropFile);
+                    setPicToView(cropUri);
                     break;
 
                 // 相册选取
                 case REQUEST_IMAGE_GET:
-                    Uri uri= getImageUri(this,data);
+                    Uri uri= getImageUri(this, data);
                     startPhotoZoom(uri);
                     break;
 
@@ -252,13 +292,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             Bitmap photo = null;
             try {
                 photo = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-            }catch (FileNotFoundException e){
+            } catch (FileNotFoundException e){
                 e.printStackTrace();
             }
             // 创建 smallIcon 文件夹
             if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                File dirFile = new File(path, "Icon");
-                File file = new File(dirFile, IMAGE_FILE_NAME);
+                //String storage = Environment.getExternalStorageDirectory().getPath();
+                File file = new File(path, IMAGE_FILE_NAME);
                 // 保存图片
                 FileOutputStream outputStream = null;
                 try {
@@ -272,6 +312,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             }
             // 在视图中显示图片
             showHeadImage();
+            //circleImageView_user_head.setImageBitmap(InfoPrefs.getData(Constants.UserInfo.GEAD_IMAGE));
         }
     }
 
@@ -340,9 +381,17 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     Environment.MEDIA_MOUNTED);// 判断sdcard是否存在
             if (isSdCardExist) {
                 File pictureFile = new File(path);
+//                Toast.makeText(this, path, Toast.LENGTH_LONG).show();
                 if (!pictureFile.exists()) {
-                    pictureFile.mkdir();
+                    try {
+                        pictureFile.mkdir();
+                        Toast.makeText(this, "mkdir success", Toast.LENGTH_LONG).show();
+                    } catch (Exception e) {
+                        Toast.makeText(this, "exception->" + e.toString(), Toast.LENGTH_LONG).show();
+                    }
                 }
+            } else {
+                Toast.makeText(this, "sd card not exists", Toast.LENGTH_LONG).show();
             }
             pop.showAtLocation(findViewById(R.id.parent), Gravity.BOTTOM
                     | Gravity.CENTER_HORIZONTAL, 0, 0); // 设置layout在PopupWindow中显示的位置
@@ -355,11 +404,53 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 @Override
                 public void onClick(DialogInterface dialog, int index) {
                     dialog.dismiss();
-                    reg_tv_sex.setText(Constant.GENDER_ITEMS[index]);
+                    tv_sex.setText(Constant.GENDER_ITEMS[index]);
                 }
             });
             builder.show();
         }
+        if (view == btn_ok) {
+            name = edt_name.getText().toString().trim();
+            pwd =edt_pwd.getText().toString().trim();
+            sex = tv_sex.getText().toString().trim();
+            if(name.equals("")) {
+                Toast.makeText(this, "注册名不能为空", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (pwd.equals("")) {
+                Toast.makeText(this, "密码不能为空", Toast.LENGTH_SHORT).show();
+                return;
+            } else if (sex.equals("")) {
+                Toast.makeText(this, "性别不能为空", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            new Thread() {
+                @Override
+                public void run() {
+                    String picName;
+                    try {
+                        picName = UploadUtil.uploadPic(path + File.separator + "crop.jpg");
+                        if (picName == null) {
+                            flag = false;
+                            return;
+                        }
+                        flag = NetInfoUtil.register(name, pwd, picName, sex);
+                        if (flag) {
+                            List<String> list = NetInfoUtil.getUser(name);
+                            ResponseUtil.writeUserInfo(RegisterActivity.this, list);
+                            String name = list.get(2);
+                            BitmapUtils.savePic(name);
+                        }
+                        Message msg = new Message();
+                        msg.what = 0;
+                        handler.sendMessage(msg);
+                    } catch(Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
     }
+
+
 
 }
