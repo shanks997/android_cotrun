@@ -1,8 +1,10 @@
 package com.acotrun.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -24,7 +27,11 @@ import android.widget.Toast;
 
 import com.acotrun.R;
 import com.acotrun.popWindow.LoginPopWindow;
+import com.acotrun.utility.BitmapUtils;
 import com.acotrun.utility.NetInfoUtil;
+import com.acotrun.utility.ResponseUtil;
+
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -36,6 +43,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button btn_login;
     private Button btn_register;
     private LoginPopWindow login_pWin;
+    private String sid;
+    private String spwd;
 
     private long exitTime = 0;
     private Handler hdr;
@@ -47,6 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        flag = getIntent().getBooleanExtra("is_login", true);
 
         iv_cancel = findViewById(R.id.iv_cancel);
         edt_id = findViewById(R.id.edt_userId);
@@ -78,7 +89,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if(flag) {
                             LoginActivity.this.finish();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("account", edt_id.getText().toString());
+                            intent.putExtra("is_login", flag);
                             startActivity(intent);
                         } else {
                             edt_id.setText("");
@@ -122,9 +133,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void run() {
                         try {
-                            String sid = edt_id.getText().toString();
-                            String spwd = edt_pwd.getText().toString();
+                            sid = edt_id.getText().toString().trim();
+                            spwd = edt_pwd.getText().toString().trim();
                             flag = NetInfoUtil.isUser(sid, spwd);
+                            if (flag) {
+                                List<String> list = NetInfoUtil.getUser(sid);
+                                // 运用共享参数写入用户名和密码及各项信息
+                                ResponseUtil.writeUserInfo(LoginActivity.this, list);
+                                // list 表中第三项是头像
+                                String picName = list.get(2);
+                                BitmapUtils.savePic(picName);
+                            }
                             Message msg=new Message();
                             msg.what=0;
                             hdr.sendMessage(msg);
@@ -139,6 +158,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             startActivity(intent);
         } else if (v.getId() == R.id.btn_look) { // 点击了“随便看看”按钮
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("is_login", false);
             startActivity(intent);
         }
     }

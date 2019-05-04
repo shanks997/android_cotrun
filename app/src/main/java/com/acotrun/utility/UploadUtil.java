@@ -2,9 +2,12 @@ package com.acotrun.utility;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,7 +26,9 @@ public class UploadUtil {
     public static String uploadPic(String path) {
         String name = null;
         try {
-            Bitmap bitmap = BitmapUtils.revitionImageSize(path);
+//            Bitmap bitmap = BitmapUtils.revitionImageSize(path);
+            FileInputStream fis = new FileInputStream(path);
+            Bitmap bitmap = BitmapFactory.decodeStream(fis);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             int options = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);

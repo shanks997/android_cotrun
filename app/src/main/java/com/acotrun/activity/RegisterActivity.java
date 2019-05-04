@@ -24,7 +24,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -223,7 +222,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
     private void startPhotoZoom(Uri uri) {
         //保存裁剪后的图片
-        File cropFile = new File(path, "crop.jpg");
+        File cropFile = new File(path, IMAGE_FILE_NAME);
         try {
             if(cropFile.exists()) {
                 cropFile.delete();
@@ -260,14 +259,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             switch (requestCode) {
                 // 切割
                 case REQUEST_SMALL_IMAGE_CUTTING:
-                    File cropFile=new File(path, "crop.jpg");
-                    Uri cropUri = Uri.fromFile(cropFile);
-                    setPicToView(cropUri);
+                    showHeadImage();
                     break;
 
                 // 相册选取
                 case REQUEST_IMAGE_GET:
-                    Uri uri= getImageUri(this, data);
+                    Uri uri = getImageUri(this, data);
                     startPhotoZoom(uri);
                     break;
 
@@ -287,42 +284,13 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    public void setPicToView(Uri uri)  {
-        if (uri != null) {
-            Bitmap photo = null;
-            try {
-                photo = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-            } catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-            // 创建 smallIcon 文件夹
-            if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-                //String storage = Environment.getExternalStorageDirectory().getPath();
-                File file = new File(path, IMAGE_FILE_NAME);
-                // 保存图片
-                FileOutputStream outputStream = null;
-                try {
-                    outputStream = new FileOutputStream(file);
-                    photo.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-                    outputStream.flush();
-                    outputStream.close();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            // 在视图中显示图片
-            showHeadImage();
-            //circleImageView_user_head.setImageBitmap(InfoPrefs.getData(Constants.UserInfo.GEAD_IMAGE));
-        }
-    }
-
     private void showHeadImage() {
         boolean isSdCardExist = Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED);// 判断sdcard是否存在
         if (isSdCardExist) {
-            File file = new File(path, "crop.jpg");
+            File file = new File(path, IMAGE_FILE_NAME);
             if (file.exists()) {
-                Bitmap bm = BitmapFactory.decodeFile(path + File.separator + "crop.jpg");
+                Bitmap bm = BitmapFactory.decodeFile(path + File.separator + IMAGE_FILE_NAME);
                 // 将图片显示到ImageView中
                 iv_avatar.setImageBitmap(bm);
             }
@@ -428,7 +396,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                 public void run() {
                     String picName;
                     try {
-                        picName = UploadUtil.uploadPic(path + File.separator + "crop.jpg");
+                        picName = UploadUtil.uploadPic(path + File.separator + IMAGE_FILE_NAME);
                         if (picName == null) {
                             flag = false;
                             return;
@@ -450,7 +418,5 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
             }.start();
         }
     }
-
-
 
 }

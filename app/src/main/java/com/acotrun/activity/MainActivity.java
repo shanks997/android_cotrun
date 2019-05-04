@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private RecordFragment recordFragment;
     private AnalyzeFragment analyzeFragment;
     private MyselfFragment myselfFragment;
-    private String account;
+    private boolean is_login;
     private long exitTime = 0;
 
     @Override
@@ -33,10 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
+        is_login = getIntent().getBooleanExtra("is_login", false);
         initViews();
         initFragment();
-        // 当前登录的 用户名
-        account = getIntent().getStringExtra("account");
     }
 
     private void initViews() {
@@ -101,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                         if (myselfFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
                             myselfFragment = new MyselfFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putBoolean("is_login", is_login);
+                            myselfFragment.setArguments(bundle);
                             ft.add(R.id.frame, myselfFragment);
                         } else {
                             // 如果MessageFragment不为空，则直接将它显示出来

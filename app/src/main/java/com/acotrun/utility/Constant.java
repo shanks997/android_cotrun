@@ -14,5 +14,6 @@ public class Constant {
 
     public static String GET_IMAGE = "<#GET_image#>";
     public static String INSERT_PIC = "<#INSERT_PICTURE#>";// 插入图片
+    public static String GET_THUMBNAIL = "<#GET_THUMBNAIL#>"; // 按名称获取缩略图
 
 }
