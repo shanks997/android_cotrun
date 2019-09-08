@@ -3,6 +3,7 @@ package com.acotrun.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -77,6 +78,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
     private final int PERMISSION_READ_AND_CAMERA = 0;// 读和相机权限
     private final int PERMISSION_READ = 1;// 读取权限
     private static final String IMAGE_FILE_NAME = "avatar.jpg";
+//    private static final String CROP_IMAGE_FILE_NAME = "avatar_crop.jpg";
     private static final String path = Environment.getExternalStorageDirectory() + File.separator + "acotrun";
 
     @Override
@@ -164,11 +166,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     // 判断当前系统
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                         //这一句非常重要
-                        it_camera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                        //it_camera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
                         pictureUri = FileProvider.getUriForFile(RegisterActivity.this,
                                 getPackageName()+".fileProvider", pictureFile);
                     } else {
+                        it_camera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         pictureUri = Uri.fromFile(pictureFile);
                     }
                     // 去拍照,拍照的结果存到 pictureUri 对应的路径中
@@ -236,6 +239,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
         intent.setDataAndType(uri, "image/*");
         intent.putExtra("crop", "true");
@@ -250,6 +254,71 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true); // no face detection
         startActivityForResult(intent, REQUEST_SMALL_IMAGE_CUTTING);
+    }
+
+    public void cropRawPhoto(Uri uri) {
+
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+
+        // 设置裁剪
+        intent.putExtra("crop", "true");
+
+        // aspectX , aspectY :宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+
+        // outputX , outputY : 裁剪图片宽高
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+
+        //startActivityForResult(intent, CODE_RESULT_REQUEST); //直接调用此代码在小米手机有异常，换以下代码
+        String mLinshi = System.currentTimeMillis() + IMAGE_FILE_NAME;
+        File mFile = new File(path, mLinshi);
+        try {
+            if(mFile.exists()) {
+                mFile.delete();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+//        mHeadCachePath = mHeadCacheFile.getAbsolutePath();
+
+        Uri mUriPath = Uri.parse("file://" + mFile.getAbsolutePath());
+        //将裁剪好的图输出到所建文件中
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUriPath);
+        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+        //注意：此处应设置return-data为false，如果设置为true，是直接返回bitmap格式的数据，耗费内存。设置为false，然后，设置裁剪完之后保存的路径，即：intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPath);
+//        intent.putExtra("return-data", true);
+        intent.putExtra("return-data", false);
+//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivityForResult(intent, REQUEST_SMALL_IMAGE_CUTTING);
+    }
+
+    public Uri getImageContentUri(File imageFile) {
+        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[] { MediaStore.Images.Media._ID },
+                MediaStore.Images.Media.DATA + "=? ",
+                new String[] { filePath }, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor
+                    .getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+            if (imageFile.exists()) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Images.Media.DATA, filePath);
+                return getContentResolver().insert(
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            } else {
+                return null;
+            }
+        }
     }
 
     @Override
@@ -270,15 +339,21 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
                 // 拍照
                 case REQUEST_IMAGE_CAPTURE:
-                    File pictureFile = new File(path, IMAGE_FILE_NAME);
-                    Uri pictureUri;
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        pictureUri = FileProvider.getUriForFile(this,
-                                getPackageName()+".fileProvider", pictureFile);
-                    } else {
-                        pictureUri = Uri.fromFile(pictureFile);
-                    }
-                    startPhotoZoom(pictureUri);
+
+                    File tempFile = new File(
+                            path,
+                            IMAGE_FILE_NAME);
+                    cropRawPhoto(getImageContentUri(tempFile));
+
+//                    File pictureFile = new File(path, IMAGE_FILE_NAME);
+//                    Uri pictureUri;
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                        pictureUri = FileProvider.getUriForFile(this,
+//                                getPackageName()+".fileProvider", pictureFile);
+//                    } else {
+//                        pictureUri = Uri.fromFile(pictureFile);
+//                    }
+//                    startPhotoZoom(pictureUri);
                     break;
             }
         }

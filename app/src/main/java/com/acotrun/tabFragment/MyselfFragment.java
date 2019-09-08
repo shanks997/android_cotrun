@@ -66,6 +66,7 @@ public class MyselfFragment extends Fragment implements View.OnClickListener  {
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int i) {
+                                getActivity().finish();
                                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                                 intent.putExtra("is_login", false);
                                 startActivity(intent);
@@ -74,6 +75,7 @@ public class MyselfFragment extends Fragment implements View.OnClickListener  {
                 // 显示
                 alert.show();
             } else {
+                getActivity().finish();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 intent.putExtra("is_login", false);
                 startActivity(intent);

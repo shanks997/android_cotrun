@@ -29,8 +29,10 @@ public class NetInfoUtil {
     static Lock onLoadLock = new ReentrantLock();
 
     private static boolean flag;
-    private static final String ip = "129.204.142.254";
-//    private static final String ip = "157.0.24.53";
+    // 本地 ip
+//    private static final String ip = "112.86.198.226";
+    // 百度云 ip
+    private static final String ip = "106.12.74.127";
 
     // 通信建立(界面响应)
     public static void connect() throws Exception {

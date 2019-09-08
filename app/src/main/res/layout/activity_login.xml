@@ -24,7 +24,7 @@
         android:layout_height="180dp"
         android:id="@+id/iv_logo"
         android:layout_below="@+id/btn_look"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         android:layout_centerHorizontal="true"
         android:background="@null"
         android:src="@drawable/icon"/>

@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent intent = new Intent(this, RegisterActivity.class);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_look) { // 点击了“随便看看”按钮
+            this.finish();
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("is_login", false);
             startActivity(intent);
