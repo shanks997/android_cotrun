@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViews() {
-        btn0 = findViewById(R.id.rb_home);
+        btn0 = findViewById(R.id.rb_schedule);
         btn1 = findViewById(R.id.rb_record);
         btn2 = findViewById(R.id.rb_analyze);
         btn3 = findViewById(R.id.rb_myself);
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
                 // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
                 hideFragments(ft);
                 switch (checkedId) {
-                    // 点击了 “首页”
-                    case R.id.rb_home:
+                    // 点击了 “日程”
+                    case R.id.rb_schedule:
                         findViewById(R.id.head_main).setVisibility(View.VISIBLE);
                         btn0.setTextColor(getResources().getColor(R.color.colorMain));
                         if (homeFragment == null) {
@@ -120,6 +120,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager ft = getSupportFragmentManager();
         FragmentTransaction fm = ft.beginTransaction();
         homeFragment = new HomeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("is_login", is_login);
+        homeFragment.setArguments(bundle);
         btn0.setTextColor(getResources().getColor(R.color.colorMain));
         findViewById(R.id.head_main).setVisibility(View.VISIBLE);
         fm.add(R.id.frame, homeFragment);

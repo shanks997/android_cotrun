@@ -29,17 +29,17 @@ public class NetInfoUtil {
     static Lock onLoadLock = new ReentrantLock();
 
     private static boolean flag;
-    // 本地 ip
+    // 本地 ip test
 //    private static final String ip = "112.86.198.226";
-    // 百度云 ip
-    private static final String ip = "106.12.74.127";
+    // 阿里云 ip
+    private static final String ip = "121.199.1.160";
 
     // 通信建立(界面响应)
     public static void connect() throws Exception {
         mlock.lock();
         sk = new Socket();
 
-        // 腾讯云服务器 ip
+        // 云服务器 ip
         SocketAddress skAddr = new InetSocketAddress(ip, 9997);
         sk.connect(skAddr, 5000);
         dis = new DataInputStream(sk.getInputStream());

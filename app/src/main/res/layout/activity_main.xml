@@ -33,7 +33,7 @@
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/rb_home"
+                android:id="@+id/rb_schedule"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -41,7 +41,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/home"
                 android:gravity="center"
-                android:text="首页"
+                android:text="日程"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
 

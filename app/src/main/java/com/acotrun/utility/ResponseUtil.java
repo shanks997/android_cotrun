@@ -16,12 +16,6 @@ public class ResponseUtil {
         editor.putString("username", list.get(k++));
         editor.putString("password", list.get(k++));
         editor.putString("avatar", list.get(k++));
-        editor.putString("attention", list.get(k++));
-        editor.putString("fans", list.get(k++));
-        editor.putString("menu", list.get(k++));
-        editor.putString("random", list.get(k++));
-        editor.putString("menuc", list.get(k++));
-        editor.putString("randomc", list.get(k++));
         editor.commit();
     }
 

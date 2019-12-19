@@ -30,7 +30,7 @@ public class MyselfFragment extends Fragment implements View.OnClickListener  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View myselflayout = inflater.inflate(R.layout.myself_layout, container, false);
-        Bundle bundle =this.getArguments();
+        Bundle bundle = this.getArguments();
         is_login = bundle.getBoolean("is_login");
         btn_quit = myselflayout.findViewById(R.id.login_quit);
         btn_quit.setOnClickListener(this);

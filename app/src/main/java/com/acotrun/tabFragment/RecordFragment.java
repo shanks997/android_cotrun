@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.acotrun.R;
 import com.acotrun.adapter.RecordPageAdapter;
 import com.acotrun.homeFragment.DietFragment;
+import com.acotrun.homeFragment.SportFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +49,7 @@ public class RecordFragment extends Fragment implements View.OnClickListener {
     // 初始化翻页视图
     private void initViewPager() {
         list=new ArrayList<>();
-        list.add(new DietFragment());
-        list.add(new DietFragment());
+        list.add(new SportFragment());
         list.add(new DietFragment());
         RecordPageAdapter adapter = new RecordPageAdapter(
                 getFragmentManager(), list);
