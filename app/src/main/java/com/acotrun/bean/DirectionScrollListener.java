@@ -3,9 +3,6 @@ package com.acotrun.bean;
 import android.view.View;
 import android.widget.AbsListView;
 
-/**
- * Created by Stéphane on 09/07/2014.
- */
 class DirectionScrollListener implements AbsListView.OnScrollListener {
 
     private static final int DIRECTION_CHANGE_THRESHOLD = 1;

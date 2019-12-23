@@ -13,20 +13,10 @@ import java.util.concurrent.Executors;
 
 public class UploadUtil {
 
-    Handler mhandler;
-    Context context;
-    static ExecutorService singleThreadExecutor = Executors
-            .newSingleThreadExecutor();
-    public UploadUtil(Context context) {
-        this.context = context;
-        mhandler = new Handler();
-    }
-
     // 上传图片
     public static String uploadPic(String path) {
         String name = null;
         try {
-//            Bitmap bitmap = BitmapUtils.revitionImageSize(path);
             FileInputStream fis = new FileInputStream(path);
             Bitmap bitmap = BitmapFactory.decodeStream(fis);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -38,7 +28,7 @@ public class UploadUtil {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, options, baos);
             }
             byte[] bb = baos.toByteArray();
-            name = NetInfoUtil.uploadPic( bb);
+            name = NetInfoUtil.uploadPic(bb);
             if (name != null && name.equals(Constant.NO_MESSAGE)) {
                 return null;
             }

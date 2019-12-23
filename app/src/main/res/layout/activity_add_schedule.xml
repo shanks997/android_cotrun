@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroud">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="新建计划项"
+        android:id="@+id/textView"
+        android:textColor="@color/colorBlack"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:background="@color/colorWhite"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/btn_return"
+        android:src="@drawable/back"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="完成"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@null"
+        android:id="@+id/btn_finish"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        android:layout_below="@+id/textView"
+        android:id="@+id/line"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/line"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/edt_actName"
+            android:hint="活动名称"
+            android:background="@color/colorWhite"
+            android:paddingLeft="10dp"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:id="@+id/edt_actBrief"
+            android:hint="活动简述"
+            android:background="@color/colorWhite"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:lines="2"
+            android:gravity="left|top"
+            android:textSize="16sp"
+            android:textColor="@color/colorBlack"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/layout_kind"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/tv1"
+                android:text="活动类型"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:layout_weight="8"/>
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_weight="5.7"
+                android:background="@color/colorWhite"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="运动"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/layout_time"
+            android:background="@color/colorWhite"
+            android:layout_marginTop="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/textView1"
+                android:text="时间"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:layout_weight="8"/>
+
+            <EditText
+                android:id="@+id/edt_actName2"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_weight="5.6"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:text="12:00"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/layout_planMode"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/textView2"
+                android:text="计划模式"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="10dp"
+                android:layout_weight="8"/>
+
+            <EditText
+                android:id="@+id/edt_actName3"
+                style="@android:style/Widget.DeviceDefault.AutoCompleteTextView"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_weight="6.7"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:text="闹钟"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/layout_remindMode"
+            android:background="@color/colorWhite">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/textView3"
+                android:text="提醒方式"
+                android:textSize="16sp"
+                android:textColor="@color/colorBlack"
+                android:gravity="center_vertical"
+                android:background="@color/colorWhite"
+                android:layout_marginTop="1dp"
+                android:paddingLeft="10dp"
+                android:layout_weight="8"/>
+
+            <EditText
+                android:id="@+id/edt_actName4"
+                android:layout_width="20dp"
+                android:layout_height="50dp"
+                android:layout_weight="6.7"
+                android:background="@color/colorWhite"
+                android:paddingLeft="10dp"
+                android:text="振动"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="63dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorGray" />
+
+        <Button
+            android:id="@+id/btn_rm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:background="@color/colorRed"
+            android:visibility="invisible" />
+    </LinearLayout>
+</RelativeLayout>

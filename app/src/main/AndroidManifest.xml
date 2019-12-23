@@ -39,6 +39,7 @@
         <activity android:name="com.acotrun.activity.LoginActivity" />
         <activity android:name="com.acotrun.activity.RegisterActivity" />
         <activity android:name="com.acotrun.activity.ForgetPwdActivity" />
+        <activity android:name="com.acotrun.activity.AddScheduleActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

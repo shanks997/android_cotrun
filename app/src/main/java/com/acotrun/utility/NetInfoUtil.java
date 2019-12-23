@@ -163,7 +163,39 @@ public class NetInfoUtil {
         return flag;
     }
 
-    public static String uploadPic(byte[] bb) {// 上传图片(后台)
+    // 删除计划项
+    public static boolean deletesche(String name, String uid) {
+        try {
+            cacheConnect();
+            cachedos.writeUTF(Constant.DELETE_SCHEDULE + name + "<#>" + uid);
+            flag = cachedin.readBoolean();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cacheDisConnect();
+        }
+        return flag;
+    }
+
+    // 添加计划项
+    public static boolean addsche(String name, String content, String kind, String time,
+                                   String model, String remind, String uid) {
+        try {
+            cacheConnect();
+            cachedos.writeUTF(Constant.ADD_SCHEDULE + name + "<#>" + content + "<#>"
+                    + kind + "<#>" + time + "<#>" + model + "<#>" + remind + "<#>" + uid);
+            flag = cachedin.readBoolean();
+            System.out.println("message-----------addsche");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cacheDisConnect();
+        }
+        return flag;
+    }
+
+    // 上传图片
+    public static String uploadPic(byte[] bb) {
         String picName = null;
         try {
             onLoadConnect();
@@ -180,37 +212,7 @@ public class NetInfoUtil {
         return picName;
     }
 
-    // 获取图片（按名称图片名）(缓冲)
-    public static byte[] getCachePicture(String picName) {
-        byte[] data = null;
-        try {
-            cacheConnect();
-            cachedos.writeUTF(Constant.GET_IMAGE + picName);
-            data = IOUtil.readBytes(cachedin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            cacheDisConnect();
-        }
-        return data;
-    }
-
-    // 获取缩略图 (缓冲)
-    public static byte[] getCacheThumbnail(String picName) {
-        byte[] data = null;
-        try {
-            cacheConnect();
-            cachedos.writeUTF(Constant.GET_THUMBNAIL + picName);
-            data = IOUtil.readBytes(cachedin);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            cacheDisConnect();
-        }
-        return data;
-    }
-
-    // 获取图片（按名称图片名）(下载)
+    // 获取图片（按名称图片名）
     public static byte[] getOnLoadPicture(String picName) {
         byte[] data = null;
         try {
@@ -225,7 +227,7 @@ public class NetInfoUtil {
         return data;
     }
 
-    // 获取用户所有信息(缓冲)
+    // 获取用户所有信息
     public static List<String> getUser(String sname) {
         List<String> list = new ArrayList<String>();
         try {
@@ -247,4 +249,25 @@ public class NetInfoUtil {
         return null;
     }
 
+    // 获取计划项
+    public static List<String> getsche(String uid) {
+        List<String> list = new ArrayList<String>();
+        try {
+            cacheConnect();
+            cachedos.writeUTF(Constant.GET_SCHEDULE + uid);
+            String message = cachedin.readUTF();
+            System.out.println("message" + message);
+            String[] content = message.split("<#>");
+            for (String s : content) {
+                list.add(s);
+            }
+            if (list.size() > 0)
+                return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cacheDisConnect();
+        }
+        return null;
+    }
 }

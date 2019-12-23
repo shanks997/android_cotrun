@@ -14,9 +14,6 @@ public class BitmapCache {
      * 缓存Image的类，当存储Image的大小大于LruCache设定的值，系统自动释放内存
      */
     private static LruCache<String, Bitmap> mMemoryCache;
-    /**
-     * 软引用 2.3后偏向回收SoftReference，不建议用，所以先采用了LruCache，但他是3.1以后出现的
-     */
     private static LinkedHashMap<String, SoftReference<Bitmap>> softreferences = new LinkedHashMap<String, SoftReference<Bitmap>>(
             40, 0.75f, true);
 
@@ -51,44 +48,29 @@ public class BitmapCache {
             };
         }
     }
-    /**
-     * 添加Bitmap到内存缓存
-     *
-     * @param key
-     * @param bitmap
-     */
+
+    // 添加Bitmap到内存缓存
     public static synchronized void addBitmapToMemoryCache(String key,
                                                            Bitmap bitmap) {
         if (!TextUtils.isEmpty(key) && getBitmapFromMemCache(key) == null
                 && bitmap != null) {
             mMemoryCache.put(key, bitmap);
-            // 考虑到3.1一下版本不支持lurcache，就加入软应用
             softreferences.put(key, new SoftReference<Bitmap>(bitmap));
         }
     }
 
-    /**
-     * 从内存缓存中获取一个Bitmap，避免并发加上synchronized
-     *
-     * @param key
-     * @return
-     */
-
     public static synchronized Bitmap getBitmapFromMemCache(String key) {
-        if(key==null)
-        {
+        if(key==null) {
             return null;
         }
         if (mMemoryCache == null) {
             initCache();
         }
-        // 如果缓存中有，则返回
         if (mMemoryCache.get(key) != null) {
             return mMemoryCache.get(key);
         }
 
         SoftReference<Bitmap> bitmapReference = softreferences.get(key);
-        // 如果软应用中有，则返回
         if (bitmapReference != null) {
             final Bitmap bitmap2 = bitmapReference.get();
             if (bitmap2 != null)
@@ -98,15 +80,9 @@ public class BitmapCache {
         return null;
     }
 
-    /**
-     * 获取Bitmap, 内存或软应用中没有就去手机或者sd卡中获取，这一步在getView中会调用，比较关键的一步
-     *
-     * @param url
-     * @return
-     */
     // 从Cache和该应用的离线图片中查找
     public static Bitmap showCacheBitmap(String url) {
-        // 先从手机缓存或软应用中找，如果有就直接返回bitmap
+        // 先从手机缓存中找，如果有就直接返回bitmap
         if (getBitmapFromMemCache(url) != null) {
             return getBitmapFromMemCache(url);
         } else if (FileUtils.isFileExists(url)

@@ -11,12 +11,9 @@ import com.acotrun.R;
 
 public class DietFragment extends Fragment {
 
-    private TextView tv;
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        tv = getActivity().findViewById(R.id.tv_diet);
     }
 
     @Override

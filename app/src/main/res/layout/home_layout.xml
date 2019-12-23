@@ -37,31 +37,11 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/username1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="未知"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/qualification1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="游客"
-                    android:textColor="@color/colorRed"
-                    android:textSize="16sp"
-                    android:layout_weight="1"/>
-
-                <TextView
                     android:id="@+id/day1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="2017/4/4"
+                    android:text="2019/12/24"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp"
                     android:layout_weight="1" />
@@ -83,16 +63,18 @@
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
         android:cacheColorHint="@null"
+        android:clickable="true"
+        android:focusable="true"
         android:divider="@null" >
     </ListView>
 
     <com.acotrun.bean.FloatingActionButton
-        android:id="@+id/fabbutton"
+        android:id="@+id/addSchedule"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_gravity="bottom|start"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="bottom|right"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="30dp"
         app:colorstd="@color/colorGray"
         app:drawable="@drawable/add" />
 

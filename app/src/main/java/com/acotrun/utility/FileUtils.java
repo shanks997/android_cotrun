@@ -31,24 +31,14 @@ public class FileUtils {
         mDataRootPath = context.getCacheDir().getPath();
     }
 
-    /**
-     * 获取储存Image的目录
-     *
-     * @return
-     */
+    // 获取储存Image的目录
     public static String getStorageDirectory() {
         return Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED) ? mSdRootPath + FOLDER_NAME
                 : mDataRootPath + FOLDER_NAME;
     }
 
-    /**
-     * 保存Image的方法，有sd卡存储到sd卡，没有就存储到手机目录
-     *
-     * @param fileName
-     * @param bitmap
-     * @throws IOException
-     */
+    // 保存Image的方法，有sd卡存储到sd卡，没有就存储到手机目录
     public static void savaBitmap(String fileName, Bitmap bitmap)
             throws IOException {
         if (bitmap == null) {
@@ -80,61 +70,21 @@ public class FileUtils {
         System.out.println("savaBitmap");
     }
 
-    /**
-     * 从手机或者sd卡获取Bitmap
-     *
-     * @param fileName
-     * @return
-     */
+    // 从手机或者sd卡获取Bitmap
     public static Bitmap getBitmap(String fileName) {
         return BitmapFactory.decodeFile(getStorageDirectory() + File.separator
                 + fileName);
     }
 
-    /**
-     * 判断文件是否存在
-     *
-     * @param fileName
-     * @return
-     */
+    // 判断文件是否存在
     public static boolean isFileExists(String fileName) {
         return new File(getStorageDirectory() + File.separator + fileName)
                 .exists();
     }
 
-    /**
-     * 获取文件的大小
-     *
-     * @param fileName
-     * @return
-     */
+    //获取文件的大小
     public static long getFileSize(String fileName) {
         return new File(getStorageDirectory() + File.separator + fileName)
                 .length();
     }
-    //获取assert文件
-    public static String loadFromSDFile(Context context,String fname)
-    {
-        String result=null;
-        try
-        {
-            InputStream in=context.getResources().getAssets().open(fname);
-            int ch=0;
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            while((ch=in.read())!=-1)
-            {
-                baos.write(ch);
-            }
-            byte[] buff=baos.toByteArray();
-            baos.close();
-            in.close();
-            result=new String(buff,"UTF-8");
-            result=result.replaceAll("\\r\\n","\n");
-        }
-        catch(Exception e)
-        {
-        }
-        return result.substring(1, result.length()-1);
-    }
-
 }

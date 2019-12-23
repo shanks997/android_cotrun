@@ -13,9 +13,11 @@ public class ResponseUtil {
         SharedPreferences sp = context.getSharedPreferences("acotrun",
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("username", list.get(k++));
-        editor.putString("password", list.get(k++));
+        editor.putString("uid", list.get(k++));
+        editor.putString("pwd", list.get(k++));
         editor.putString("avatar", list.get(k++));
+        editor.putString("sex", list.get(k++));
+        editor.putString("model", list.get(k++));
         editor.commit();
     }
 

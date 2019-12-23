@@ -165,9 +165,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                     File pictureFile = new File(path, IMAGE_FILE_NAME);
                     // 判断当前系统
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        //这一句非常重要
-                        //it_camera.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        //""中的内容是随意的，但最好用package名.provider名的形式，清晰明了
                         pictureUri = FileProvider.getUriForFile(RegisterActivity.this,
                                 getPackageName()+".fileProvider", pictureFile);
                     } else {
@@ -283,16 +280,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         } catch (Exception e){
             e.printStackTrace();
         }
-//        mHeadCachePath = mHeadCacheFile.getAbsolutePath();
 
         Uri mUriPath = Uri.parse("file://" + mFile.getAbsolutePath());
         //将裁剪好的图输出到所建文件中
         intent.putExtra(MediaStore.EXTRA_OUTPUT, mUriPath);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        //注意：此处应设置return-data为false，如果设置为true，是直接返回bitmap格式的数据，耗费内存。设置为false，然后，设置裁剪完之后保存的路径，即：intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPath);
-//        intent.putExtra("return-data", true);
         intent.putExtra("return-data", false);
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivityForResult(intent, REQUEST_SMALL_IMAGE_CUTTING);
     }
 
@@ -344,16 +337,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
                             path,
                             IMAGE_FILE_NAME);
                     cropRawPhoto(getImageContentUri(tempFile));
-
-//                    File pictureFile = new File(path, IMAGE_FILE_NAME);
-//                    Uri pictureUri;
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                        pictureUri = FileProvider.getUriForFile(this,
-//                                getPackageName()+".fileProvider", pictureFile);
-//                    } else {
-//                        pictureUri = Uri.fromFile(pictureFile);
-//                    }
-//                    startPhotoZoom(pictureUri);
                     break;
             }
         }

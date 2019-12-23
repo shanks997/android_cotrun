@@ -1,22 +1,15 @@
 package com.acotrun.activity;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -26,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.acotrun.R;
+import com.acotrun.bean.User;
 import com.acotrun.popWindow.LoginPopWindow;
 import com.acotrun.utility.BitmapUtils;
 import com.acotrun.utility.NetInfoUtil;
@@ -49,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private long exitTime = 0;
     private Handler hdr;
     private static boolean flag;
+    List<String> list;
 
 
     @Override
@@ -87,6 +82,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     case 0:					///登陆成功
                         login_pWin.dismiss();
                         if(flag) {
+                            String model = list.get(4);
+                            User user = User.getInstance();
+                            if (model == "0") user.setU_model("0");
+                            if (model == "1") user.setU_model("1");
+                            if (model == "2") user.setU_model("2");
+                            user.setU_id(list.get(0));
+                            user.setU_pwd(list.get(1));
+                            user.setU_avatar(list.get(2));
+                            user.setU_sex(list.get(3));
+                            user.setU_login(true);
                             LoginActivity.this.finish();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             intent.putExtra("is_login", flag);
@@ -137,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             spwd = edt_pwd.getText().toString().trim();
                             flag = NetInfoUtil.isUser(sid, spwd);
                             if (flag) {
-                                List<String> list = NetInfoUtil.getUser(sid);
+                                list = NetInfoUtil.getUser(sid);
                                 // 运用共享参数写入用户名和密码及各项信息
                                 ResponseUtil.writeUserInfo(LoginActivity.this, list);
                                 // list 表中第三项是头像
