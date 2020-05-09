@@ -16,9 +16,6 @@ import android.util.AttributeSet;
 
 import com.acotrun.R;
 
-/**
- * 圆形ImageView，可设置最多两个宽度不同且颜色不同的圆形边框。
- */
 public class RoundImageView extends android.support.v7.widget.AppCompatImageView {
 	private int mBorderThickness = 0;
 	private Context mContext;
@@ -81,12 +78,6 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
 		if (defaultHeight == 0) {
 			defaultHeight = getHeight();
 		}
-		// 保证重新读取图片后不会因为图片大小而改变控件宽、高的大小（针对宽、高为wrap_content布局的imageview，但会导致margin无效）
-		// if (defaultWidth != 0 && defaultHeight != 0) {
-		// LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-		// defaultWidth, defaultHeight);
-		// setLayoutParams(params);
-		// }
 		int radius = 0;
 		if (mBorderInsideColor != defaultColor
 				&& mBorderOutsideColor != defaultColor) {// 定义画两个边框，分别为外圆边框和内圆边框
@@ -119,12 +110,6 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
 				/ 2 - radius, null);
 	}
 
-	/**
-	 * 获取裁剪后的圆形图片
-	 * 
-	 * @param radius
-	 *            半径
-	 */
 	public Bitmap getCroppedRoundBitmap(Bitmap bmp, int radius) {
 		Bitmap scaledSrcBmp;
 		int diameter = radius * 2;
@@ -187,9 +172,6 @@ public class RoundImageView extends android.support.v7.widget.AppCompatImageView
 		return output;
 	}
 
-	/**
-	 * 边缘画圆
-	 */
 	private void drawCircleBorder(Canvas canvas, int radius, int color) {
 		Paint paint = new Paint();
 		/* 去锯齿 */

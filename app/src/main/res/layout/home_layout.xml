@@ -64,9 +64,8 @@
         android:layout_marginTop="70dp"
         android:cacheColorHint="@null"
         android:clickable="true"
-        android:focusable="true"
-        android:divider="@null" >
-    </ListView>
+        android:divider="@null"
+        android:focusable="true"></ListView>
 
     <com.acotrun.bean.FloatingActionButton
         android:id="@+id/addSchedule"

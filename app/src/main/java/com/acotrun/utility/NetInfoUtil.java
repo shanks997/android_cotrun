@@ -32,7 +32,9 @@ public class NetInfoUtil {
     // 本地 ip test
 //    private static final String ip = "112.86.198.226";
     // 阿里云 ip
-    private static final String ip = "121.199.1.160";
+//    private static final String ip = "121.199.1.160";
+    // 华为云 ip
+    private static final String ip = "119.3.234.52";
 
     // 通信建立(界面响应)
     public static void connect() throws Exception {
@@ -178,12 +180,11 @@ public class NetInfoUtil {
     }
 
     // 添加计划项
-    public static boolean addsche(String name, String content, String kind, String time,
-                                   String model, String remind, String uid) {
+    public static boolean addsche(String kind, String name, String content, String time, String uid) {
         try {
             cacheConnect();
-            cachedos.writeUTF(Constant.ADD_SCHEDULE + name + "<#>" + content + "<#>"
-                    + kind + "<#>" + time + "<#>" + model + "<#>" + remind + "<#>" + uid);
+            cachedos.writeUTF(Constant.ADD_SCHEDULE + kind + "<#>" + name + "<#>" + content + "<#>"
+                    + time + "<#>" + uid);
             flag = cachedin.readBoolean();
             System.out.println("message-----------addsche");
         } catch (Exception e) {
@@ -251,7 +252,7 @@ public class NetInfoUtil {
 
     // 获取计划项
     public static List<String> getsche(String uid) {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             cacheConnect();
             cachedos.writeUTF(Constant.GET_SCHEDULE + uid);

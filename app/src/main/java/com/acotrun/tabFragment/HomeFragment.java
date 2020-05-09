@@ -27,6 +27,7 @@ import com.acotrun.bean.RoundImageView;
 import com.acotrun.bean.FloatingActionButton;
 import com.acotrun.activity.AddScheduleActivity;
 import com.acotrun.bean.User;
+import com.acotrun.utility.Constant;
 import com.acotrun.utility.NetInfoUtil;
 
 import java.util.ArrayList;
@@ -88,15 +89,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 LinkedList<Data> data = new LinkedList<Data>();
                 switch (msg.what) {
                     case 0:
-                        if (list.size() < 7) {
+                        if (list.size() < 5) {
                             Data d = new Data();
                             d.setText("\t您还未添加计划表哦");
                             data.add(d);
                             break;
                         }
-                        for(int i = 0; i < list.size(); i += 7) {
+                        for(int i = 0; i < list.size(); i += 5) {
                             Data d = new Data();
-                            d.setText("\t"+list.get(i)+"-----"+list.get(i+3));
+                            d.setText("\t"+list.get(i+1)+"-----"+ Constant.ACTIVITY_ITEMS[Integer.parseInt(list.get(i))]);
                             data.add(d);
                         }
                         break;
@@ -120,15 +121,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                         Bundle bd = new Bundle();
                         String str = t.getText().split("-----")[0].trim();
                         System.out.println("message：" + str);
-                        for(int j = 0; j < list.size(); j += 7) {
-                            if (list.get(j).equals(str)) {
-                                bd.putString("name", list.get(j));
-                                bd.putString("content", list.get(j+1));
-                                bd.putString("kind", list.get(j+2));
+                        for(int j = 0; j < list.size(); j += 5) {
+                            if (list.get(j+1).equals(str)) {
+                                bd.putString("kind", list.get(j));
+                                bd.putString("name", list.get(j+1));
+                                bd.putString("content", list.get(j+2));
                                 bd.putString("time", list.get(j+3));
-                                bd.putString("model", list.get(j+4));
-                                bd.putString("remind", list.get(j+5));
-                                System.out.println("message：" + list.get(j));
+                                bd.putString("uid", list.get(j+4));
+                                System.out.println("message：" + list.get(j+1));
                             } else continue;
                         }
                         Intent intent = new Intent();

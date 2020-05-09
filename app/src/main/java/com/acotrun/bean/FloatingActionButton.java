@@ -28,24 +28,16 @@ import com.acotrun.R;
 
 public class FloatingActionButton extends View {
 
-    private final Interpolator mInterpolator = new AccelerateDecelerateInterpolator();
     private final Paint mButtonPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint mDrawablePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Bitmap mBitmap;
     private int mColor;
-    private boolean mHidden = false;
     private Rect rect;
     private int mLeftDisplayed = -1;
     private int mRightDisplayed = -1;
     private int mTopDisplayed = -1;
     private int mBottomDisplayed = -1;
-    /**
-     * The FAB button's Y position when it is displayed.
-     */
     private float mYDisplayed = -1;
-    /**
-     * The FAB button's Y position when it is hidden.
-     */
     private float mYHidden = -1;
 
     public FloatingActionButton(Context context) {
@@ -108,11 +100,6 @@ public class FloatingActionButton extends View {
         invalidate();
     }
 
-    public void setShadow(float radius, float dx, float dy, int color) {
-        mButtonPaint.setShadowLayer(radius, dx, dy, color);
-        invalidate();
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, (float) (getWidth() / 2.6), mButtonPaint);
@@ -156,25 +143,5 @@ public class FloatingActionButton extends View {
         mButtonPaint.setColor(color);
         invalidate();
         return super.onTouchEvent(event);
-    }
-
-    public void hide(boolean hide) {
-        // If the hidden state is being updated
-        if (mHidden != hide) {
-
-            // Store the new_cookbook hidden state
-            mHidden = hide;
-
-            // Animate the FAB to it's new_cookbook Y position
-          /*  ObjectAnimator animator = ObjectAnimator.ofFloat(this, "y", mHidden ? mYHidden : mYDisplayed).setDuration(500);
-            animator.setInterpolator(mInterpolator);
-            animator.start();*/
-        }
-    }
-
-    public void listenTo(AbsListView listView) {
-        if (null != listView) {
-            listView.setOnScrollListener(new DirectionScrollListener(this));
-        }
     }
 }

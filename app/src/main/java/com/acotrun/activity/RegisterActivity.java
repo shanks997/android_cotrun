@@ -270,7 +270,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         intent.putExtra("outputY", 300);
         intent.putExtra("return-data", true);
 
-        //startActivityForResult(intent, CODE_RESULT_REQUEST); //直接调用此代码在小米手机有异常，换以下代码
         String mLinshi = System.currentTimeMillis() + IMAGE_FILE_NAME;
         File mFile = new File(path, mLinshi);
         try {
