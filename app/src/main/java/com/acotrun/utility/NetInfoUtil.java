@@ -165,6 +165,21 @@ public class NetInfoUtil {
         return flag;
     }
 
+    // 添加活动项
+    public static boolean addActivity(String name, String creator, String _class, String content, String time) {
+        try {
+            cacheConnect();
+            cachedos.writeUTF(Constant.ADD_ACTIVITY + name + "<#>" + creator + "<#>" + _class + "<#>"
+                    + content + "<#>" + time);
+            flag = cachedin.readBoolean();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            cacheDisConnect();
+        }
+        return flag;
+    }
+
     // 删除计划项
     public static boolean deletesche(String name, String uid) {
         try {

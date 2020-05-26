@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/list_background"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,7 +47,7 @@
                 android:textSize="18sp" />
 
             <RadioButton
-                android:id="@+id/rb_record"
+                android:id="@+id/rb_activity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -54,12 +55,12 @@
                 android:button="@null"
                 android:drawableTop="@drawable/record"
                 android:gravity="center"
-                android:text="记录"
+                android:text="活动"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
 
             <RadioButton
-                android:id="@+id/rb_analyze"
+                android:id="@+id/rb_community"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -67,7 +68,7 @@
                 android:button="@null"
                 android:drawableTop="@drawable/analyze"
                 android:gravity="center"
-                android:text="分析"
+                android:text="社区"
                 android:textColor="#82858b"
                 android:textSize="18sp" />
 

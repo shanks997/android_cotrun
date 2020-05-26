@@ -6,29 +6,26 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.acotrun.R;
-import com.acotrun.tabFragment.AnalyzeFragment;
+import com.acotrun.tabFragment.CommunityFragment;
 import com.acotrun.tabFragment.HomeFragment;
 import com.acotrun.tabFragment.MyselfFragment;
-import com.acotrun.tabFragment.RecordFragment;
+import com.acotrun.tabFragment.ActivityFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private Button btn0, btn1, btn2, btn3;
     private HomeFragment homeFragment;
-    private RecordFragment recordFragment;
-    private AnalyzeFragment analyzeFragment;
+    private ActivityFragment activityFragment;
+    private CommunityFragment communityFragment;
     private MyselfFragment myselfFragment;
     private boolean is_login;
     private long exitTime = 0;
@@ -53,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViews() {
         btn0 = findViewById(R.id.rb_schedule);
-        btn1 = findViewById(R.id.rb_record);
-        btn2 = findViewById(R.id.rb_analyze);
+        btn1 = findViewById(R.id.rb_activity);
+        btn2 = findViewById(R.id.rb_community);
         btn3 = findViewById(R.id.rb_myself);
         radioGroup = findViewById(R.id.radio);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -82,31 +79,31 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
 
-                    case R.id.rb_record:
+                    case R.id.rb_activity:
                         ftag = "record";
                         findViewById(R.id.head_main).setVisibility(View.GONE);
                         btn1.setTextColor(getResources().getColor(R.color.colorMain));
-                        if (recordFragment == null) {
+                        if (activityFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
-                            recordFragment = new RecordFragment();
-                            ft.add(R.id.frame, recordFragment, "record");
+                            activityFragment = new ActivityFragment();
+                            ft.add(R.id.frame, activityFragment, "record");
                         } else {
                             // 如果MessageFragment不为空，则直接将它显示出来
-                            ft.show(recordFragment);
+                            ft.show(activityFragment);
                         }
                         break;
 
-                    case R.id.rb_analyze:
+                    case R.id.rb_community:
                         ftag = "analyze";
                         findViewById(R.id.head_main).setVisibility(View.VISIBLE);
                         btn2.setTextColor(getResources().getColor(R.color.colorMain));
-                        if (analyzeFragment == null) {
+                        if (communityFragment == null) {
                             // 如果MessageFragment为空，则创建一个并添加到界面上
-                            analyzeFragment = new AnalyzeFragment();
-                            ft.add(R.id.frame, analyzeFragment, "analyze");
+                            communityFragment = new CommunityFragment();
+                            ft.add(R.id.frame, communityFragment, "analyze");
                         } else {
                             // 如果MessageFragment不为空，则直接将它显示出来
-                            ft.show(analyzeFragment);
+                            ft.show(communityFragment);
                         }
                         break;
 
@@ -158,11 +155,11 @@ public class MainActivity extends AppCompatActivity {
         if (homeFragment != null) {
             transaction.hide(homeFragment);
         }
-        if (recordFragment != null) {
-            transaction.hide(recordFragment);
+        if (activityFragment != null) {
+            transaction.hide(activityFragment);
         }
-        if (analyzeFragment != null) {
-            transaction.hide(analyzeFragment);
+        if (communityFragment != null) {
+            transaction.hide(communityFragment);
         }
         if (myselfFragment != null) {
             transaction.hide(myselfFragment);

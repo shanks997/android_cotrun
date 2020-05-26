@@ -67,14 +67,16 @@
         android:divider="@null"
         android:focusable="true"></ListView>
 
-    <com.acotrun.bean.FloatingActionButton
+    <Button
         android:id="@+id/addSchedule"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="26dp"
         android:layout_marginRight="30dp"
-        app:colorstd="@color/colorGray"
-        app:drawable="@drawable/add" />
+        android:background="@drawable/add" />
+
 
 </FrameLayout>

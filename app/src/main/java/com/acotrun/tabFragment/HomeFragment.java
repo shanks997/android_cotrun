@@ -7,31 +7,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.acotrun.R;
 import com.acotrun.adapter.ListViewAdapter;
 import com.acotrun.bean.Data;
 import com.acotrun.bean.ImageDownLoader;
 import com.acotrun.bean.RoundImageView;
-import com.acotrun.bean.FloatingActionButton;
 import com.acotrun.activity.AddScheduleActivity;
 import com.acotrun.bean.User;
 import com.acotrun.utility.Constant;
 import com.acotrun.utility.NetInfoUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,7 +34,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     RoundImageView imageView;
     String uidPic;
     Boolean is_login;
-    FloatingActionButton btn_add;
+    Button btn_add;
     View homelayout;
     int cnt;
     int firstListItemPosition;

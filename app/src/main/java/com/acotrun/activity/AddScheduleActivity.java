@@ -90,6 +90,7 @@ public class AddScheduleActivity extends AppCompatActivity implements View.OnCli
                 android.R.layout.simple_spinner_item, Constant.ACTIVITY_ITEMS);
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerAdapter);
+        spinnerAdapter.notifyDataSetChanged();
 
         Bundle bd = getIntent().getExtras();    //得到传过来的bundle
         if (bd != null && !bd.isEmpty()) {
@@ -97,7 +98,8 @@ public class AddScheduleActivity extends AppCompatActivity implements View.OnCli
             btn_delete.setVisibility(View.VISIBLE);
             edt_name.setText(bd.getString("name"));
             edt_content.setText(bd.getString("content"));
-            spinner.setSelection(bd.getInt("kind"));
+            edt_time.setText(bd.getString("time"));
+            spinner.setSelection(Integer.parseInt(bd.getString("kind")));
         }
 
         handler = new Handler() {
@@ -177,6 +179,7 @@ public class AddScheduleActivity extends AppCompatActivity implements View.OnCli
             name = edt_name.getText().toString().trim();
             content =edt_content.getText().toString().trim();
             kind = String.valueOf(spinner.getSelectedItemPosition()).trim();
+            time = edt_time.getText().toString().trim();
             if(name.equals("")) {
                 Toast.makeText(this, "活动名称不能为空", Toast.LENGTH_SHORT).show();
                 return;

@@ -436,8 +436,9 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
         }
         if (view == btn_ok) {
             name = edt_name.getText().toString().trim();
-            pwd =edt_pwd.getText().toString().trim();
+            pwd = edt_pwd.getText().toString().trim();
             sex = tv_sex.getText().toString().trim();
+
             if(name.equals("")) {
                 Toast.makeText(this, "注册名不能为空", Toast.LENGTH_SHORT).show();
                 return;
